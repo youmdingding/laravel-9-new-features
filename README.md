@@ -77,4 +77,52 @@ XDEBUG_MODE=coverage php artisan test --coverage --min=80
 ![php artisan test coverage min](/php_artisan_test_coverage_min.png?raw=true)
 
 
+### **Full Text Indexing**
 
+Laravel 8.x
+```php
+Migration
+$table->text('licence_notes');
+
+Controller
+Licence::whereLike('licence_notes', 'LIKE', '%text%');
+```
+
+Laravel 9.x
+```php
+Migration
+$table->text('licence_notes')->fulltext(); //Creates FULLTEXT index in MySQL table
+
+Controller
+Licence::whereFullText('licence_notes', '%text%'); //Uses MySQL MATCH AGAINST functionality 
+```
+
+### **Enum Attribute Casting**
+
+Laravel 8.x
+```php
+Enum
+final class LicenceStatus extends Enum {
+    const Expired = 'Expired';
+    const Active = 'Active';
+}
+
+Migration
+$table->enum('licence_status', [LicenceStatus::Active, LicenceStatus::Expired]);
+```
+
+Laravel 9.x
+```php
+Enum
+enum LicenceStatus:string {
+    case Expired = 'Expired';
+    case Active = 'Active';
+}
+
+Migration
+$table->string('licence_status')->default('active');
+
+Model
+protected $casts = ['licence_status' => LicenceStatus::class]
+
+```
