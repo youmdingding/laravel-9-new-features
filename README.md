@@ -67,9 +67,14 @@ Laravel 8.x
 ```php
 php artisan test
 ```
+![php artisan test](/php_artisan_test.png?raw=true)
+
 
 Laravel 9.x
 ```php
-XDEBUG_MODE=coverage php artisan test --coverage --min=
+XDEBUG_MODE=coverage php artisan test --coverage --min=80
 ```
+![php artisan test coverage min](/php_artisan_test_coverage_min.png?raw=true)
+
+
 
